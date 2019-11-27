@@ -1,8 +1,81 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "main": {
+      "root": "apps/main",
+      "sourceRoot": "apps/main/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/main",
+            "index": "apps/main/assets/index.html",
+            "main": "apps/main/src/main.tsx",
+            "tsConfig": "apps/main/tsconfig.app.json",
+            "webpackConfig": "@nrwl/react/plugins/babel"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/main/src/environments/environment.ts",
+                  "with": "apps/main/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "main:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "main:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/main/.eslintrc",
+            "tsConfig": [
+              "apps/main/tsconfig.app.json",
+              "apps/main/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/main/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/main/jest.config.js",
+            "tsConfig": "apps/main/tsconfig.spec.json"
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/react"
   },
   "schematics": {
     "@nrwl/workspace": {
@@ -17,9 +90,15 @@
     },
     "@nrwl/react": {
       "application": {
-        "linter": "eslint"
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "css"
       },
       "library": {
+        "style": "css",
         "linter": "eslint"
       }
     },
@@ -48,5 +127,6 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "defaultProject": "main"
 }
