@@ -12,6 +12,10 @@ export function normalizeModule(modules = []) {
 				};
 			}
 
+			if (module.sagas) {
+				accum.sagas = accum.sagas.concat(module.sagas);
+			}
+
 			return accum;
 		},
 		{

@@ -23,7 +23,7 @@ export function configureStore(
 	return createStore(combineReducers(staticReducers), initialState, enhancer);
 }
 
-export function injectReducers(reducers, store) {
+export function injectReducers(store, reducers = {}) {
 	Object.assign(staticReducers, reducers);
 	store.replaceReducer(combineReducers(staticReducers));
 }

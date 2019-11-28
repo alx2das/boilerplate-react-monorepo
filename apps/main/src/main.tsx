@@ -33,5 +33,9 @@ setTimeout(() => {
 	injectModules([settings]);
 	console.log('injectReducer', store.getState());
 }, 5000);
+setTimeout(() => {
+	store.dispatch({ type: 'SETTINGS2.SET_SAGA_READY' });
+	console.log('SETTINGS2.SET_SAGA_READY', store.getState());
+}, 6000);
 
 ReactDOM.render(<App store={store} />, document.getElementById('root'));
