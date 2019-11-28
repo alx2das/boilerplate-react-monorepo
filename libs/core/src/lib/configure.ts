@@ -39,5 +39,5 @@ export function injectModules(modules = []) {
 	injectReducers(store, reducers);
 	runSaga(sagaMiddleware, sagas);
 
-	return { routes };
+	return routes;
 }

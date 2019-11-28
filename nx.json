@@ -16,6 +16,24 @@
     },
     "helpers": {
       "tags": []
+    },
+    "router": {
+      "tags": []
+    },
+    "modules-app": {
+      "tags": []
+    },
+    "modules-welcome": {
+      "tags": []
+    },
+    "modules-auth": {
+      "tags": []
+    },
+    "modules-section-one": {
+      "tags": []
+    },
+    "modules-section-two": {
+      "tags": []
     }
   }
 }

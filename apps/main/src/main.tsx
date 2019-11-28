@@ -3,39 +3,50 @@ import 'regenerator-runtime/runtime';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { configureModules } from "@workspace/core";
+import { UiRouter } from "@workspace/router";
 
-import App from './app/app';
-import { configureModules, injectModules } from '@workspace/core';
+import AppComponent from "./components/AppComponent";
+import mainCommon from "./entriesRoutes/mainCommon";
 
-import app from './modules/app';
-import account from './modules/account';
-import settings from './modules/settings';
 
-const { store } = configureModules([app, account]);
+const {routes, ...initStore} = configureModules(mainCommon);
+const asyncRoutes = [
+	{
+		id: "main-auth",
+		async: true,
+		path: ["/sign-in", "/sign-up", "/forgot"],
+		component: () => import("./entriesRoutes/mainAuth")
+	},
+	{
+		id: "main-welcome",
+		async: true,
+		path: ["/welcome-search", "/welcome-confirm", "/welcome-final"],
+		component: () => import("./entriesRoutes/mainWelcome")
+	},
+	{
+		id: "main-sectionOne",
+		async: true,
+		path: "/section-one",
+		component: () => import("./entriesRoutes/mainSectionOne")
+	},
+	{
+		id: "main-sectionTwo",
+		async: true,
+		path: "/section-two",
+		component: () => import("./entriesRoutes/mainSectionTwo")
+	},
+	{
+		id: "main-common",
+		path: "/",
+		component: () => <UiRouter routes={routes} />
+	}
+];
+const Root = () => (
+	<AppComponent routes={asyncRoutes} {...initStore}>
+		<div>other components</div>
+	</AppComponent>
+);
 
-setTimeout(() => {
-	console.log('INIT', store.getState());
-}, 1000);
-setTimeout(() => {
-	store.dispatch({ type: 'APP.SET_READY' });
-	console.log('APP.SET_READY', store.getState());
-}, 2000);
-// setTimeout(() => {
-// 	injectModules([account]);
-//
-// 	console.log("injectReducer", store.getState());
-// }, 3000);
-setTimeout(() => {
-	store.dispatch({ type: 'ACCOUNT.SET_READY' });
-	console.log('ACCOUNT.SET_READY', store.getState());
-}, 4000);
-setTimeout(() => {
-	injectModules([settings]);
-	console.log('injectReducer', store.getState());
-}, 5000);
-setTimeout(() => {
-	store.dispatch({ type: 'SETTINGS2.SET_SAGA_READY' });
-	console.log('SETTINGS2.SET_SAGA_READY', store.getState());
-}, 6000);
 
-ReactDOM.render(<App store={store} />, document.getElementById('root'));
+ReactDOM.render(<Root />, document.getElementById('root'));

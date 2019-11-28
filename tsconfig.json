@@ -17,7 +17,17 @@
     "baseUrl": ".",
     "paths": {
       "@workspace/core": ["libs/core/src/index.ts"],
-      "@workspace/helpers": ["libs/helpers/src/index.ts"]
+      "@workspace/helpers": ["libs/helpers/src/index.ts"],
+      "@workspace/router": ["libs/router/src/index.ts"],
+      "@workspace/modules/app": ["libs/modules/app/src/index.ts"],
+      "@workspace/modules/welcome": ["libs/modules/welcome/src/index.ts"],
+      "@workspace/modules/auth": ["libs/modules/auth/src/index.ts"],
+      "@workspace/modules/section-one": [
+        "libs/modules/section-one/src/index.ts"
+      ],
+      "@workspace/modules/section-two": [
+        "libs/modules/section-two/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
