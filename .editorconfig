@@ -1,13 +1,21 @@
-# Editor configuration, see http://editorconfig.org
+; Top-most EditorConfig file
 root = true
 
+; Unix-style newlines
 [*]
+end_of_line = LF
 charset = utf-8
-indent_style = space
-indent_size = 2
-insert_final_newline = true
-trim_trailing_whitespace = true
 
-[*.md]
-max_line_length = off
-trim_trailing_whitespace = false
+; 4-column space indentation
+[*.cs]
+indent_style = space
+indent_size = 4
+
+[*.{html,js,jsx,ts,tsx}]
+indent_style = tab
+indent_size = 4
+
+[*.{css,less,styl}]
+indent_style = tab
+indent_size = 4
+

@@ -15,7 +15,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@workspace/core": ["libs/core/src/index.ts"],
+      "@workspace/helpers": ["libs/helpers/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
