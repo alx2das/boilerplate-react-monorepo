@@ -1,10 +1,9 @@
 import { createBrowserHistory } from 'history';
 import createSagaMiddleware from 'redux-saga';
-import { all } from "redux-saga/effects";
 import { routerMiddleware } from 'connected-react-router';
 
 import { normalizeModule } from '../helpers/normalize';
-import { configureStore, injectReducers } from './configureStore';
+import { configureStore, injectReducers, runSaga } from './configureStore';
 
 const defaultOptions = {
 	basename: '/',
@@ -41,24 +40,4 @@ export function injectModules(modules = []) {
 	runSaga(sagaMiddleware, sagas);
 
 	return { routes };
-}
-
-
-// ...
-// =============================================================================
-
-function runSaga(sagaMiddleware, sagas = []) {
-	if (sagaMiddleware === null) {
-		throw new Error('Store not initialized');
-	}
-
-	if (sagas.length > 0) {
-		sagaMiddleware.run(rootSagas(sagas));
-	}
-
-	function rootSagas(sagas) {
-		return function* () {
-			yield all(sagas);
-		}
-	}
 }
