@@ -16,8 +16,8 @@ export function configureStore(
 	};
 
 	const _middleware = [applyMiddleware(...middleware)];
-	const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-		? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(..._middleware)
+	const enhancer = window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"]
+		? window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"](..._middleware)
 		: compose(..._middleware);
 
 	return createStore(combineReducers(staticReducers), initialState, enhancer);
